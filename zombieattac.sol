@@ -4,7 +4,7 @@ pragma solidity <0.9.0;
 import "./zombiehelper.sol";
 
 contract ZombieBattle is ZombieHelper {
-    
+
     uint256 randNonce = 0;
     uint256 attackVictoryProbability = 70;
 
@@ -18,5 +18,20 @@ contract ZombieBattle is ZombieHelper {
             ) % _modulus;
     }
 
-    function attack(uint256 _zombieId, uint256 _targetId) external {}
+    function attack(uint256 _zombieId, uint256 _targetId) external ownerOf(_zombieId) {
+        Zombie storage myZombie = zombies[_zombieId];
+        Zombie storage enemyZombie = zombies[_targetId];
+        uint rand = randMode(100);
+
+        if (rand <= attackVictoryProbability) {
+            myZombie.winCount++;
+            myZombie.level++;
+            enemyZombie.lossCount++;
+            feedAndMultiply(_zombieId, enemyZombie.dna, "zombie");
+        } else {
+            myZombie.lossCount++;
+            enemyZombie.winCount++;
+        }
+        _triggerCooldown(myZombie);
+    }
 }
