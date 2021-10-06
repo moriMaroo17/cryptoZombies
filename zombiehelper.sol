@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity <0.9.0;
 
-import "./ZombieFeeding.sol";
+import "./zombiefeeding.sol";
 
 contract ZombieHelper is ZombieFeeding {
 
