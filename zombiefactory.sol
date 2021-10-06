@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity <0.9.0;
 
-import "./ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ZombieFactory is Ownable {
 
