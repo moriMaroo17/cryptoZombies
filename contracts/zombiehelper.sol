@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity <0.9.0;
+pragma solidity ^0.8.6;
 
 import "./zombiefeeding.sol";
 
@@ -13,7 +13,7 @@ contract ZombieHelper is ZombieFeeding {
     }
 
     function withdraw() external onlyOwner {
-        payable(owner).transfer(address(this).balance);
+        payable(owner()).transfer(address(this).balance);
     }
 
     function setLevelUpFee(uint256 _fee) external onlyOwner {
@@ -28,7 +28,7 @@ contract ZombieHelper is ZombieFeeding {
     function changeName(uint256 _zombieId, string memory _newName)
         external
         aboveLevel(2, _zombieId)
-        ownerOf(_zombieId)
+        onlyOwnerOf(_zombieId)
     {
         zombies[_zombieId].name = _newName;
     }
@@ -36,7 +36,7 @@ contract ZombieHelper is ZombieFeeding {
     function changeDna(uint256 _zombieId, uint256 _newDna)
         external
         aboveLevel(20, _zombieId)
-        ownerOf(_zombieId)
+        onlyOwnerOf(_zombieId)
     {
         zombies[_zombieId].dna = _newDna;
     }
